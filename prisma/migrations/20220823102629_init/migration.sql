@@ -1,8 +1,8 @@
 -- CreateTable
-CREATE TABLE "Customer" (
+CREATE TABLE "customer" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "document" INTEGER NOT NULL,
 
-    CONSTRAINT "Customer_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "customer_pkey" PRIMARY KEY ("id")
 );

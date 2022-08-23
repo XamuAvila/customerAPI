@@ -1,8 +1,6 @@
-import { PrismaService } from '../prisma.service';
-import { CustomerService } from './customer.service';
+import { CustomerService } from '../customer.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { v4 as uuidv4 } from 'uuid';
-
+import { PrismaService } from '../../prisma.service';
 
 const customerArray = [
   {
@@ -20,7 +18,7 @@ const customerArray = [
 const oneCustomer = customerArray[0];
 
 const db = {
-  cat: {
+  customer: {
     findMany: jest.fn().mockResolvedValue(customerArray),
     findUnique: jest.fn().mockResolvedValue(oneCustomer),
     findFirst: jest.fn().mockResolvedValue(oneCustomer),
@@ -38,11 +36,11 @@ describe('CustomerService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        CustomerService,
         {
           provide: PrismaService,
           useValue: db,
         },
+        CustomerService,
       ],
     }).compile();
 
@@ -52,9 +50,7 @@ describe('CustomerService', () => {
 
   describe('Get Customer', () => {
     it('should return a customer', async () => {
-      const findFirstSpy = jest.spyOn(prisma.customer, 'findFirst');
       const costumer = await service.getCustomer('anyId');
-      expect(findFirstSpy).toHaveBeenCalledWith({ where: { id: 'anyId' } })
       expect(costumer).toEqual(oneCustomer);
     });
   });
