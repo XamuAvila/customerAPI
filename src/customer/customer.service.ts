@@ -1,10 +1,10 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Prisma, Customer } from '@prisma/client';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class CustomerService {
-    constructor(private prisma: PrismaService) { }
+    constructor(@Inject() private prisma: PrismaService) { }
 
     async createCustomer(data: Prisma.CustomerCreateInput): Promise<Customer> {
         return this.prisma.customer.create({ data });
