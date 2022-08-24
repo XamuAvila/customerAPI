@@ -8,6 +8,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt-strategy';
+import { SsoModule } from './sso/sso.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { JwtStrategy } from './strategies/jwt-strategy';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '2h' },
     }),
+    SsoModule,
   ],
   providers: [AuthService, LocalStrategy, UsersService, JwtStrategy, PrismaService],
   exports: [AuthService],
