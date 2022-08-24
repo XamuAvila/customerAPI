@@ -12,3 +12,9 @@ model customer {
   name String
   document Int
 }
+
+model user {
+  id   String  @id @default(uuid())
+  login String
+  password String
+}
